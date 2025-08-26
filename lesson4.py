@@ -22,12 +22,22 @@ def call_function(user_choice):
 	if user_choice == 1:
 		display_books()
 	elif user_choice == 2:
-		book_name=input("Book to add: ").lower()
+		book_name=input("Book to add: ").lower().strip()
 		add_book(book_name)
 	elif user_choice == 3:
-		book_name= input("Book to Borrow: ").lower()
+		book_name= input("Book to Borrow: ").lower().strip()
 		borrow_book(book_name)
-			
+	elif user_choice == 4:
+		std_id=int(input("Enter student id: "))		
+		return_book(std_id)
+	elif user_choice == 5:
+		display_borrowed_books()	
+	elif user_choice == 6:
+		students_borrowed()
+	elif user_choice == 7:
+		exit_program()	
+	else:
+		print("Invalid input")		
 
 def display_books():
 	if len(library) != 0:
@@ -53,5 +63,26 @@ def borrow_book(book_name):
 		print(borrowed_books)
 	else:
 		print("Book not found")		
+
+def return_book(std_id):
+	if std_id in borrowed_books:
+		book=borrowed_books[std_id]
+		library.append(book)
+		print(library)
+		print(borrowed_books)
+		#borrowed_books.pop(1)
+	else:
+		print("You didn't borrow any book.")	
+	
+def display_borrowed_books():
+	for key, values in borrowed_books.items():
+		print(f"Borrowed book: {values}")
+
+def students_borrowed():
+	for key, values in borrowed_books.items():
+		print(f"student id {key} borrowed book")
+
+def exit_program():
+	exit()				
 							
 start()
